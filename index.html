@@ -1,0 +1,289 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>EVOKE — Erotic Art Show</title>
+<meta name="description" content="EVOKE, an erotic art show. Call for artists and tickets.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root { --ink: #fff; }
+  * { box-sizing: border-box; margin: 0; }
+  html { scroll-behavior: smooth; scroll-padding-top: 9vw; }
+  body {
+    font-family: Montserrat, system-ui, sans-serif;
+    color: var(--ink);
+    background: #0F0F0D;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+  #base { position: fixed; inset: 0; z-index: -2; background: #0F0F0D; }
+  #bg { position: fixed; inset: 0; width: 100%; height: 100%; z-index: -1; display: block; opacity: .5; mix-blend-mode: screen; }
+
+  /* Everything in the hero is sized in vw from the 1729px-wide design, so it scales as one piece. */
+  header {
+    position: sticky; top: 20px; z-index: 10; height: 0;
+    margin-top: max(0px, calc(5.38vw - 20px));
+    display: flex; justify-content: center;
+    pointer-events: none;
+  }
+  nav {
+    pointer-events: auto;
+    font-size: max(1.012vw, 9px); /* 17.5px at 1729px */
+    display: flex; align-items: center; gap: 5.7em;
+    padding: 0 1.33em; height: 2.59em;
+    border-radius: 999px;
+    background: rgba(0, 0, 0, .3);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+  }
+  nav .brand { font-size: 1.3em; font-weight: 300; color: inherit; text-decoration: none; }
+  nav .links { display: flex; gap: 1.9em; }
+  nav .links a { font-weight: 300; color: inherit; text-decoration: none; transition: opacity .2s; }
+  nav .links a:hover, nav .links a:focus-visible { text-decoration: underline; text-underline-offset: .3em; }
+
+  .hero {
+    position: relative; width: 100%; aspect-ratio: 2000 / 1713;
+    margin-top: calc(-1 * max(0px, calc(5.38vw - 20px)));
+  }
+  .title {
+    position: absolute; left: 30.4%; top: 15vw; width: 39.7%; height: auto; display: block; overflow: visible;
+    font-family: Montserrat, system-ui, sans-serif; fill: #fff;
+  }
+  /* Black ground and dark figures become transparent so the gradient is the only background. */
+  .art {
+    position: absolute; left: 34.92%; top: 35.35vw; width: 30.2%; height: auto;
+    transform: scaleX(-1); filter: url(#lum); pointer-events: none;
+  }
+
+  section.block { padding: 8vw max(20px, 6vw); max-width: 920px; margin: 0 auto; }
+  section.block h2 { font-weight: 200; font-size: clamp(2.2rem, 5vw, 4rem); margin-bottom: 24px; }
+  section.block p { font-weight: 300; font-size: 1.15rem; line-height: 1.7; max-width: 60ch; }
+  .btn {
+    display: inline-block; margin-top: 32px; padding: 16px 34px; border-radius: 999px;
+    border: 1px solid rgba(255,255,255,.8); color: inherit; text-decoration: none;
+    font-weight: 400; letter-spacing: .04em; transition: background .2s, color .2s;
+  }
+  .btn:hover, .btn:focus-visible { background: #fff; color: #5a0f7a; }
+  footer { padding: 48px 20px 64px; text-align: center; font-weight: 300; font-size: .95rem; opacity: .8; }
+</style>
+</head>
+<body>
+<div id="base" aria-hidden="true"></div>
+<canvas id="bg" aria-hidden="true"></canvas>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <filter id="lum" color-interpolation-filters="sRGB" x="0" y="0" width="100%" height="100%">
+    <!-- cream colour, alpha = luminance of the source -->
+    <feColorMatrix type="matrix" values="0 0 0 0 0.93  0 0 0 0 0.91  0 0 0 0 0.86  0.333 0.333 0.333 0 0"/>
+    <feComponentTransfer><feFuncA type="table" tableValues="0 0 0 0.35 0.85 1 1 1 1"/></feComponentTransfer>
+  </filter>
+</svg>
+
+<header>
+  <nav aria-label="Main">
+    <a class="brand" href="#top">EVOKE</a>
+    <div class="links">
+      <a href="#artists">Call for artists</a>
+      <a href="#tickets">Tickets</a>
+    </div>
+  </nav>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <!-- Both lines are fitted so their ink spans exactly the same width at every size (see script). -->
+    <svg class="title" viewBox="0 0 794 300" role="img" aria-label="EVOKE — Erotic Art Show">
+      <text id="t1" y="195" font-size="238" font-weight="200">EVOKE</text>
+      <text id="t2" y="278" font-size="80" font-weight="300">EROTIC ART SHOW</text>
+    </svg>
+    <img class="art" src="figures.webp" alt="Three intertwined figures drawn in fine line and stars">
+  </section>
+
+  <section class="block" id="artists">
+    <h2>Call for artists</h2>
+    <p>We're seeking painting, photography, sculpture, illustration and mixed media that explores desire, intimacy and the body. Submissions open soon — details, dates and guidelines to be announced.</p>
+    <a class="btn" href="#">Submit your work</a>
+  </section>
+
+  <section class="block" id="tickets">
+    <h2>Tickets</h2>
+    <p>Date and venue to be announced. Join the list to be first to know when tickets go on sale.</p>
+    <a class="btn" href="#">Get tickets</a>
+  </section>
+</main>
+
+<footer>© EVOKE Erotic Art Show · 18+ only</footer>
+
+<script>
+(() => {
+  const canvas = document.getElementById('bg');
+  const gl = canvas.getContext('webgl2', { antialias: false, alpha: false });
+  if (!gl) return;
+
+  // Port of the "Vivid drift" Figma WGSL shader. Zoom is fixed at 1.
+  const FS = `#version 300 es
+  precision highp float;
+  uniform float uTime;
+  uniform vec2 uDims;
+  uniform vec2 uMouse;           // page px, origin top-left
+  uniform float uScroll;         // page scroll in render px
+  uniform vec4 uColor[4];
+  uniform float uPos[4];
+  uniform vec2 uPurple, uPink, uTeal, uYellow;
+  uniform float uDrift, uMouseStrength, uMouseRadius, uSoft;
+  out vec4 outColor;
+  const int N = 4;
+
+  vec4 ramp(float t) {
+    if (t <= uPos[0]) return uColor[0];
+    for (int i = 0; i < N - 1; i++) {
+      if (t <= uPos[i + 1]) return mix(uColor[i], uColor[i + 1], (t - uPos[i]) / max(uPos[i + 1] - uPos[i], 1e-5));
+    }
+    return uColor[N - 1];
+  }
+  float region(vec2 q, float t, float softness) {
+    float f = sin(q.x * 3.1 + t * 0.62) * 0.53 + cos(q.y * 3.5 - t * 0.47) * 0.32 + sin((q.x + q.y) * 2.3 + t * 0.35) * 0.15;
+    float s = tanh(f * softness) / tanh(softness);
+    return clamp(0.39 + 0.39 * s, 0.0, 0.78);
+  }
+  void main() {
+    // The pattern is laid out on a 2000x1713 frame that scales with the page width,
+    // so it matches the design at any viewport and keeps flowing below the first frame.
+    vec2 frameDims = vec2(uDims.x, uDims.x * 1713.0 / 2000.0);
+    float shortSide = min(frameDims.x, frameDims.y);
+    vec2 px = vec2(gl_FragCoord.x, uDims.y - gl_FragCoord.y + uScroll);
+    vec2 p = (px - 0.5 * frameDims) / shortSide;
+    vec2 cursor = (uMouse - 0.5 * frameDims) / shortSide;
+    float radius = max(uMouseRadius * 0.01, 0.01);
+    vec2 delta = p - cursor;
+    float influence = exp(-dot(delta, delta) / (radius * radius));
+    float t = uTime * 0.001 * uDrift;
+    p -= delta * influence * uMouseStrength;
+    p += uMouseStrength * influence * vec2(sin(t * 0.7), cos(t * 0.6)) * 0.10;
+    vec2 warp = vec2(sin(p.y * 2.4 + t * 0.55), cos(p.x * 2.1 - t * 0.43));
+    vec2 q = p + warp * 0.22;
+    float softness = mix(2.3, 0.95, uSoft);
+
+    vec2 aspectScale = frameDims / shortSide;
+    vec2 purpleShift = (uPurple * 0.01 - vec2(0.15, 0.75)) * aspectScale;
+    vec2 pinkShift   = (uPink   * 0.01 - vec2(0.35, 0.45)) * aspectScale;
+    vec2 tealShift   = (uTeal   * 0.01 - vec2(0.80, 0.65)) * aspectScale;
+    vec2 yellowShift = (uYellow * 0.01 - vec2(0.84, 0.22)) * aspectScale;
+
+    vec4 acc = vec4(0.0);
+    float wsum = 0.0;
+    for (int i = 0; i < N; i++) {
+      float sp = uPos[i];
+      vec2 shift = mix(purpleShift, pinkShift, clamp(sp / 0.38, 0.0, 1.0));
+      if (sp > 0.38) shift = mix(pinkShift, tealShift, clamp((sp - 0.38) / 0.40, 0.0, 1.0));
+      if (sp > 0.78) shift = mix(tealShift, yellowShift, clamp((sp - 0.78) / 0.22, 0.0, 1.0));
+      float pos = region(q - shift, t, softness);
+      float w = 1.0;
+      if (pos < sp && i > 0) w = clamp((pos - uPos[i - 1]) / max(sp - uPos[i - 1], 1e-5), 0.0, 1.0);
+      else if (pos >= sp && i + 1 < N) w = clamp((uPos[i + 1] - pos) / max(uPos[i + 1] - sp, 1e-5), 0.0, 1.0);
+      acc += uColor[i] * w;
+      wsum += w;
+    }
+    vec4 base = mix(ramp(region(q, t, softness)), acc / max(wsum, 1e-5), smoothstep(0.0, 0.001, wsum));
+    vec2 accentCenter = yellowShift + vec2(0.34 + 0.11 * sin(t * 0.41), -0.28 + 0.15 * cos(t * 0.37));
+    vec2 ad = q - accentCenter;
+    float yAmt = 0.70 * exp(-dot(ad, ad) / 0.017);
+    outColor = vec4(mix(base, ramp(1.0), yAmt).rgb, 1.0);
+  }`;
+  const VS = `#version 300 es
+  void main() {
+    vec2 v = vec2((gl_VertexID << 1) & 2, gl_VertexID & 2);
+    gl_Position = vec4(v * 2.0 - 1.0, 0.0, 1.0);
+  }`;
+
+  function shader(type, src) {
+    const s = gl.createShader(type);
+    gl.shaderSource(s, src); gl.compileShader(s);
+    if (!gl.getShaderParameter(s, gl.COMPILE_STATUS)) throw new Error(gl.getShaderInfoLog(s));
+    return s;
+  }
+  const prog = gl.createProgram();
+  gl.attachShader(prog, shader(gl.VERTEX_SHADER, VS));
+  gl.attachShader(prog, shader(gl.FRAGMENT_SHADER, FS));
+  gl.linkProgram(prog);
+  if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) throw new Error(gl.getProgramInfoLog(prog));
+  gl.useProgram(prog);
+  const U = n => gl.getUniformLocation(prog, n);
+
+  gl.uniform4fv(U('uColor'), [
+    0.33, 0.035, 0.88, 1,
+    1, 0.025, 0.48, 1,
+    0.015, 0.86, 0.76, 1,
+    1, 0.89, 0.12, 1,
+  ]);
+  gl.uniform1fv(U('uPos'), [0, 0.38, 0.78, 1]);
+  gl.uniform2f(U('uPurple'), 15, 75);
+  gl.uniform2f(U('uPink'), 35, 45);
+  gl.uniform2f(U('uTeal'), 80, 65);
+  gl.uniform2f(U('uYellow'), 84, 22);
+  gl.uniform1f(U('uDrift'), 0.18);
+  gl.uniform1f(U('uMouseStrength'), 0.24);
+  gl.uniform1f(U('uMouseRadius'), 38);
+  gl.uniform1f(U('uSoft'), 0.65);
+
+  const SCALE = 1; // 1 shader px per CSS px, as in the source
+  let w = 1, h = 1;
+  function resize() {
+    w = Math.max(1, Math.round(innerWidth * SCALE));
+    h = Math.max(1, Math.round(innerHeight * SCALE));
+    canvas.width = w; canvas.height = h;
+    gl.viewport(0, 0, w, h);
+    gl.uniform2f(U('uDims'), w, h);
+  }
+  addEventListener('resize', resize);
+  resize();
+
+  // Pointer position is passed straight to the shader, unsmoothed, as in the source; off-screen = no influence.
+  const OFF = -1e4;
+  const target = { x: OFF, y: OFF }, cur = { x: OFF, y: OFF };
+  addEventListener('pointermove', e => { target.x = e.clientX * SCALE; target.y = e.clientY * SCALE; }, { passive: true });
+  document.documentElement.addEventListener('pointerleave', () => { target.x = OFF; target.y = OFF; });
+
+  // Persistent monotonic clock, so motion never restarts or freezes with hover.
+  let clock = 0, last = performance.now();
+  function frame(now) {
+    const dt = Math.min(Math.max(now - last, 0), 100);
+    last = now;
+    clock += dt;
+    cur.x = target.x; cur.y = target.y;
+    gl.uniform1f(U('uTime'), clock);
+    const sy = scrollY * SCALE;
+    gl.uniform1f(U('uScroll'), sy);
+    gl.uniform2f(U('uMouse'), cur.x, cur.y + sy);
+    gl.drawArrays(gl.TRIANGLES, 0, 3);
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+})();
+</script>
+<script>
+// Make "EROTIC ART SHOW" and "EVOKE" span exactly the same ink width (794 units) at every size.
+// Measured once in design units, so it is independent of viewport scaling.
+(async () => {
+  const W = 794;
+  try { await Promise.all([document.fonts.load('200 238px Montserrat'), document.fonts.load('300 80px Montserrat')]); } catch (e) {}
+  const ctx = document.createElement('canvas').getContext('2d');
+  for (const id of ['t1', 't2']) {
+    const el = document.getElementById(id);
+    const size = el.getAttribute('font-size'), weight = el.getAttribute('font-weight');
+    const str = el.textContent;
+    ctx.font = `${weight} ${size}px Montserrat`;
+    ctx.letterSpacing = '0px';
+    const m = ctx.measureText(str);
+    const inkLeft = -m.actualBoundingBoxLeft, inkWidth = m.actualBoundingBoxRight + m.actualBoundingBoxLeft;
+    const ls = (W - inkWidth) / (str.length - 1);
+    el.setAttribute('x', -inkLeft);
+    el.setAttribute('letter-spacing', ls);
+  }
+})();
+</script>
+</body>
+</html>
